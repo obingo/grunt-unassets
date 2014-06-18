@@ -28,11 +28,28 @@ exports.unassets = {
     done();
   },
   default_options: function(test) {
-    test.expect(3);
+    test.expect(6);
 
-    test.equal(grunt.file.exists('tmp/res/js/unused.js'), false, 'remove unused.js');
-    test.equal(grunt.file.exists('tmp/res/css/unused.css'), false, 'remove unused.css');
-    test.equal(grunt.file.exists('tmp/res/images/unused.gif'), false, 'remove unused.gif');
+    test.equal(grunt.file.exists('tmp/default/res/js/unused.js'), false, 'remove unused.js');
+    test.equal(grunt.file.exists('tmp/default/res/css/unused.css'), false, 'remove unused.css');
+    test.equal(grunt.file.exists('tmp/default/res/images/unused.gif'), false, 'remove unused.gif');
+
+    test.equal(grunt.file.exists('tmp/default/res/js/used.js'), false, 'save used.js');
+    test.equal(grunt.file.exists('tmp/default/res/css/used.css'), true, 'save used.css');
+    test.equal(grunt.file.exists('tmp/default/res/images/used.gif'), true, 'save used.gif');
+
+    test.done();
+  },
+  root_options: function(test) {
+    test.expect(6);
+
+    test.equal(grunt.file.exists('tmp/root/res/js/unused.js'), false, 'remove unused.js');
+    test.equal(grunt.file.exists('tmp/root/res/css/unused.css'), false, 'remove unused.css');
+    test.equal(grunt.file.exists('tmp/root/res/images/unused.gif'), false, 'remove unused.gif');
+
+    test.equal(grunt.file.exists('tmp/root/res/js/used.js'), true, 'save used.js');
+    test.equal(grunt.file.exists('tmp/root/res/css/used.css'), true, 'save used.css');
+    test.equal(grunt.file.exists('tmp/root/res/images/used.gif'), true, 'save used.gif');
 
     test.done();
   }

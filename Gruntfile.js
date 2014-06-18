@@ -29,19 +29,30 @@ module.exports = function(grunt) {
     },
 
     copy: {
-      tests: {
+      default_options: {
         expand: true,
         cwd: 'test/fixtures/',
         src: ['**'],
-        dest: 'tmp/'
+        dest: 'tmp/default/'
       },
+      root_options: {
+        expand: true,
+        cwd: 'test/fixtures/',
+        src: ['**'],
+        dest: 'tmp/root/'
+      }
     },
 
     // Configuration to be run (and then tested).
     unassets: {
-      test: {
-        src: ['tmp/test.html', 'tmp/test.css'],
-        dest: 'tmp/res/'
+      default_options: {
+        src: ['tmp/default/test.html', 'tmp/default/test.css'],
+        dest: 'tmp/default/res/'
+      },
+      root_options: {
+        options: {root: 'tmp/root/'},
+        src: ['tmp/root/test.html', 'tmp/root/test.css'],
+        dest: 'tmp/root/res/'
       }
     },
 

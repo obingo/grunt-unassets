@@ -14,10 +14,13 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('unassets', 'clean unused assets', function() {
     var _ = grunt.util._;
-    var regex = /(?:href|src)="(?!(?:http|#|\s|"))([^"]+)"|url\(([^)]+)\)/ig;
+    var assetsRegexp = /(?:href|src)="(?!(?:http|#|\s|"))([^"]+)"|url\(([^)]+)\)/ig;
+    var options = this.options({
+      root: process.cwd()
+    });
 
     this.files.forEach(function(filePair) {
-      var usedAssets = getUsedAssets(filePair.src);
+      var usedAssets = getUsedAssets(filePair.src, options.root);
       var allAssets = getAllAssets(filePair.dest);
 
       var unusedAssets = _.difference(allAssets, usedAssets);
@@ -28,7 +31,7 @@ module.exports = function(grunt) {
       });
     });
 
-    function getUsedAssets(src) {
+    function getUsedAssets(src, root) {
       var links = [];
       src.filter(function(filePath) {
         return grunt.file.isFile(filePath);
@@ -36,9 +39,9 @@ module.exports = function(grunt) {
         var content = grunt.file.read(filePath);
         var cwd = path.dirname(filePath);
         var result;
-        regex.lastIndex = 0;
-        while ((result = regex.exec(content)) !== null) {
-          var file = path.resolve(cwd, result[1] || result[2]);
+        assetsRegexp.lastIndex = 0;
+        while ((result = assetsRegexp.exec(content)) !== null) {
+          var file = fixFilePath(result[1] || result[2], cwd, root);
           links.push(file);
         }
       });
@@ -48,7 +51,7 @@ module.exports = function(grunt) {
       });
     }
 
-    function getAllAssets(src, options) {
+    function getAllAssets(src) {
       if (grunt.file.isDir(src)) {
         return grunt.file.expand({
           filter: 'isFile',
@@ -57,6 +60,14 @@ module.exports = function(grunt) {
       }
 
       return grunt.file.isFile(src) ? [src] : [];
+    }
+
+    function fixFilePath(src, cwd, root) {
+      if (/^\/|\\/.test(src)) {
+        return path.resolve(root, src.replace(/^\/|\\/, ''));
+      } else {
+        return path.resolve(cwd, src);
+      }
     }
   });
 };
