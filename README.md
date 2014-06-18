@@ -1,4 +1,4 @@
-# grunt-unassets
+# grunt-unassets [![Build Status](https://travis-ci.org/obingo/grunt-tplinc.svg)](https://travis-ci.org/obingo/grunt-tplinc)
 
 > clean unused assets
 
