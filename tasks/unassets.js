@@ -63,10 +63,10 @@ module.exports = function(grunt) {
     }
 
     function fixFilePath(src, cwd, root) {
-      if (/^\/|\\/.test(src)) {
-        return path.resolve(root, src.replace(/^\/|\\/, ''));
-      } else {
+      if (/^\./.test(src)) {
         return path.resolve(cwd, src);
+      } else {
+        return path.resolve(root, src.replace(/^\/|\\/, ''));
       }
     }
   });

@@ -35,7 +35,7 @@ exports.unassets = {
     test.equal(grunt.file.exists('tmp/default/res/images/unused.gif'), false, 'remove unused.gif');
 
     test.equal(grunt.file.exists('tmp/default/res/js/used.js'), false, 'save used.js');
-    test.equal(grunt.file.exists('tmp/default/res/css/used.css'), true, 'save used.css');
+    test.equal(grunt.file.exists('tmp/default/res/css/used.css'), false, 'save used.css');
     test.equal(grunt.file.exists('tmp/default/res/images/used.gif'), true, 'save used.gif');
 
     test.done();
