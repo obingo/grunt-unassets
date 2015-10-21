@@ -1,7 +1,7 @@
 {
   "name": "grunt-unassets",
   "description": "clean unused assets",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "homepage": "https://github.com/xsbchen/grunt-unassets",
   "author": {
     "name": "Bingo",
